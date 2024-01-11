@@ -13,7 +13,7 @@ from pathlib import Path
 rcParams['figure.figsize'] = 5, 10
 
 
-MY_DATA = Path(os.getenv('DATA_DIR', '../../data'), 'category4')
+# MY_DATA = Path(os.getenv('DATA_DIR', '../../data'), 'category4')
 
 MY_DATA = Path(os.getenv('DATA_DIR', '.'), 'category4')
 MY_IMAGES = Path(MY_DATA, 'images')
@@ -54,22 +54,7 @@ fig.set_size_inches(14, 14)
 plt.show()
 
 def transform_image(array):
-    """
-    Should transform image by:
 
-    1) Resizing the shortest dimension to 416. e.g (832, 3328) -> (416, 1664).
-    2) Cropping to a center square of dimension (416, 416).
-    3) Converting the image from HWC layout to CHW layout.
-    4) Normalizing the image using COCO statistics (i.e. per colour channel mean and variance).
-    5) Creating a batch of 1 image.
-
-    :param f_dir: array (in HWC layout).
-    :type f_dir: mx.nd.NDArray
-
-    :return: a batch of a single transformed images (in NCHW layout) and a un-normalized image.
-    :rtype: tuple of (mx.nd.NDArray, numpy.ndarray)
-    """
-    # YOUR CODE HERE
     return data.transforms.presets.yolo.transform_test(array, short=416)
     raise NotImplementedError()
 
@@ -84,30 +69,11 @@ fig.set_size_inches(14, 14)
 plt.show()
 
 
-# ### 4) Using a my_model
-#
-# Your next task is to pass a transformed image through the network to obtain bounding box and class predictions from the network.
-#
-# We'll ignore the requirement of creating just a people detector for now.
-#
-# **Hint**: Don't forget that you're typically working with a batch of images, even when you only have one image.
-
-# In[14]:
 
 
 def detectNetwork(network, data):
-    """
-    Should return the bounding boxes and class predictions from a given network and image.
 
-    :param network: pre-trained object detection my_model
-    :type network: mx.gluon.Block
-    :param data: batch of transformed images of shape (1, 3, 416, 416)
-    :type data: mx.nd.NDArray
 
-    :return: tuple of class_ids, scores, bounding_boxes
-    :rtype: tuple of mxn.nd.NDArrays
-    """
-    # YOUR CODE HERE
     return network(data)
     raise NotImplementedError()
     return class_ids, scores, bounding_boxes
@@ -127,25 +93,7 @@ plt.show()
 
 
 def count_object(network, class_ids, scores, bounding_boxes, object_label, threshold=0.75):
-    """
-    Counts objects of a given type that are predicted by the network.
 
-    :param network: object detection network
-    :type network: mx.gluon.nn.Block
-    :param class_ids: predicted object class indexes (e.g. 123)
-    :type class_ids: mxn.nd.NDArrays
-    :param scores: predicted object confidence
-    :type scores: mxn.nd.NDArrays
-    :param bounding_boxes: predicted object locations
-    :type bounding_boxes: mxn.nd.NDArrays
-    :param object_label: object to be counted (e.g. "person")
-    :type object_label: str
-    :param threshold: required confidence for object to be counted
-    :type threshold: float
-
-    :return: number of objects that are predicted by the network.
-    :rtype: int
-    """
     detected_objects = 0
     while (scores[0][detected_objects] > threshold):
         detected_objects += 1
@@ -157,20 +105,20 @@ def count_object(network, class_ids, scores, bounding_boxes, object_label, thres
     return count
 
 
-# In[18]:
+
 
 
 for object_label in ["person", "sports ball"]:
     count = count_object(network, class_ids, scores, bounding_boxes, object_label)
     print("{} objects of class '{}' detected".format(count, object_label))
 
-# In[19]:
+
 
 
 num_people = count_object(network, class_ids, scores, bounding_boxes, "person")
 assert num_people == 6
 
-# In[20]:
+
 
 
 thresholds = [0, 0.5, 0.75, 0.9, 0.99, 0.999]
