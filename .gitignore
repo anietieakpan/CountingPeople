@@ -6,3 +6,8 @@
 category4/models/yolo3_darknet53_coco-09767802.params
 .DS_Store
 **/.DS_Store
+category4/.DS_Store
+category4/images/.DS_Store
+category4_old_aniix/.DS_Store
+data/.DS_Store
+venv/.DS_Store
