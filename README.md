@@ -1,6 +1,6 @@
 # Object/People Counter with MXNet-GluonCV
 
-This is a repo for a machine learning project - where I used the AWS MNNet library and implemented a people-counting logic. 
+This is a repo for a machine learning project - where I used the Amazon MXNet Machine Learning library and implemented a people-counting application. 
 
 ### Warning
 
@@ -12,4 +12,5 @@ This is a repo for a machine learning project - where I used the AWS MNNet libra
 *b. Alternatively, PyCharm can download this and uncompress it automatically 
 
 *c. Place images of people in the /Category4/images directory to test out the feature
+
 
