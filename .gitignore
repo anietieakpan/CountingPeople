@@ -5,3 +5,4 @@
 *.zip
 category4/models/yolo3_darknet53_coco-09767802.params
 .DS_Store
+**/.DS_Store
